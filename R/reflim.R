@@ -22,10 +22,10 @@ reflim <- function(x, lognormal = NULL, targets = NULL,
 
   if(!is.numeric(xx)){
       print(noquote("warning message (reflim): x must be numeric. Non-numeric values removed."))
-      options(warn = -1)
+
       xx <- as.numeric(xx)
       xx <- na.omit(xx)
-      options(warn = 0)
+
       result$remarks <- "Non-numeric values removed"
     }
   if(min(xx) <= 0){
@@ -34,9 +34,9 @@ reflim <- function(x, lognormal = NULL, targets = NULL,
       result$remarks <- "Values <= 0 removed"
     }
   if(!is.null(targets)){
-    options(warn = -1)
+
     targets <- na.omit(as.numeric(targets))
-    options(warn = 0)
+
     if(length(targets) != 2){
       print(noquote("Warning message (reflim): Targets must be a vector with length 2. NA not allowed. Targets removed."))
       targets = NULL

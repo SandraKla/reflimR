@@ -59,13 +59,12 @@ iboxplot <- function(x, lognormal = NULL, perc.trunc = 2.5, apply.rounding = TRU
       delta <- max(x1) - min(x1)
       breaks = seq(from = min(x1) - 0.1 * delta, to = max(x1) + 0.1 * delta, by = (lim[2] - lim[1]) / 10)
     }
-    par(mgp = c(2.5, 1, 0))
+
     hist(x1, freq = FALSE, breaks = breaks,
          yaxt = "n", ylim = c(0, max(d[, 2]) * 1.5),
          main = main, xlab = xlab, ylab = "",
          col = "white", border = "grey")
 
-    par(mgp = c(3, 1, 0))
     lines(d[, 1], d[, 2], col = "blue", lwd = 2)
     lines(rep(lim[1], 2), c(0, d[1, 2]), col = "blue", lwd = 2)
     lines(rep(lim[2], 2), c(0, d[nrow(d), 2]), col = "blue", lwd = 2)

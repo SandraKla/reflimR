@@ -51,12 +51,10 @@ ri_hist <- function(x, lognormal, stats, limits, perc.norm,
     dev.lim <- ip$dev.lim
   }
 
-  par(mgp = c(2, 1, 0))
   hist(xx, freq = FALSE, breaks = breaks, yaxt = "n",
        ylim = c(0, max(d.max, max(d1 * perc.norm / 100))),
        col = "white", border = "grey",
        main = main, xlab = xlab, ylab = "")
-  par(mgp = c(3, 1, 0))
   box()
   if(!is.null(targets)){
     rect(tol.tar[1], 0, tol.tar[2], d.max * 0.8, col = col.tar[1], border = NA)
