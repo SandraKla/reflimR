@@ -6,7 +6,7 @@ Iteratively truncates a vector of quantitative laboratory results until no more 
 }
 \usage{
 iboxplot(x, lognormal = NULL, perc.trunc = 2.5,
-apply.rounding = TRUE, print.cycles = TRUE,
+apply.rounding = TRUE,
 plot.it = TRUE, main = "iBoxplot", xlab = "x")
 }
 \arguments{
@@ -14,7 +14,6 @@ plot.it = TRUE, main = "iBoxplot", xlab = "x")
 \item{lognormal}{Boolean indicating whether a lognormal distribution should be assumed (NULL means that the distribution type is defined automatically)}
 \item{perc.trunc}{percentage of presumably normal values to be removed from each side}
 \item{apply.rounding}{Boolean indicating whether the estimated reference limits should be rounded}
-\item{print.cycles}{if TRUE, the result of each iteration of the truncation process is printed}
 \item{plot.it}{Boolean indicating whether a graphic should be created}
 \item{main, xlab}{title and x label of the graphic}
 }
@@ -23,6 +22,7 @@ plot.it = TRUE, main = "iBoxplot", xlab = "x")
 \item{$limits}{truncation points, preliminary reference limits}
 \item{$lognormal}{Boolean indicating whether a lognormal distribution has been assumed}
 \item{$perc.norm}{proportion of the assumed non-pathological values}
+\item{$progress}{results of the iterative truncation}
 }
 \details{
 The truncated vector represents the estimated central 95 percent of values, which follow the assumed distribution (normal or lognormal). If the distribution of the reference values is unknown, medical laboratory results should be assumed to be lognormally distributed [2].
@@ -38,6 +38,6 @@ iboxplot(rlnorm(n = 250, meanlog = 3,  sdlog = 0.3))
 
 iboxplot(rnorm(1000, 100, 10), apply.rounding = FALSE, plot.it = FALSE)$truncation.points
 
-alb.trunc <- iboxplot(livertests$ALB, print.cycles = FALSE, main = "ALB", xlab = "g/L")$trunc
+alb.trunc <- iboxplot(livertests$ALB, main = "ALB", xlab = "g/L")$trunc
 summary(alb.trunc)
 }

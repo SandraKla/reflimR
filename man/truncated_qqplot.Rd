@@ -34,7 +34,7 @@ Intercept and slope of the q-q plot represent the robust mean and standard devia
 \examples{
 set.seed(123)
 x <- rlnorm(n = 250, meanlog = 3,  sdlog = 0.3)
-x.trunc <- iboxplot(x, print.cycles = FALSE, plot.it = FALSE)$trunc
+x.trunc <- iboxplot(x, plot.it = FALSE)$trunc
 truncated_qqplot(x.trunc)
 
 x.f <- subset(livertests, livertests$Sex == "f")

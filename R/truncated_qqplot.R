@@ -9,7 +9,7 @@ truncated_qqplot <- function(x.trunc, lognormal = NULL, perc.trunc = 2.5, n.min 
   n <- length(x.trunc)
   if(n < 40){stop(paste0("(truncated_qqplot) n = ", n, ". The absolute minimum for reference limit estimation is 40."))}
   if(n < n.min){
-    print(noquote(paste("(truncated_qqplot) n =", n, "where a minimum of", n.min, "is required. You may try to reduce n.min at the loss of accuracy.")))
+    warning(paste("(truncated_qqplot) n =", n, "where a minimum of", n.min, "is required. You may try to reduce n.min at the loss of accuracy."))
     return(list(result = NULL, lognormal = NULL))
   }
   n.quantiles <- 100

@@ -21,7 +21,7 @@ reflim <- function(x, lognormal = NULL, targets = NULL,
                  remarks = NA)
 
   if(!is.numeric(xx)){
-      print(noquote("warning message (reflim): x must be numeric. Non-numeric values removed."))
+      warning("(reflim): x must be numeric. Non-numeric values removed.")
 
       xx <- as.numeric(xx)
       xx <- na.omit(xx)
@@ -29,7 +29,7 @@ reflim <- function(x, lognormal = NULL, targets = NULL,
       result$remarks <- "Non-numeric values removed"
     }
   if(min(xx) <= 0){
-      print(noquote("Warning message (reflim): only positive values allowed. values <= 0 removed."))
+      warning("(reflim): only positive values allowed. values <= 0 removed.")
       xx <- xx[xx > 0]
       result$remarks <- "Values <= 0 removed"
     }
@@ -38,41 +38,41 @@ reflim <- function(x, lognormal = NULL, targets = NULL,
     targets <- na.omit(as.numeric(targets))
 
     if(length(targets) != 2){
-      print(noquote("Warning message (reflim): Targets must be a vector with length 2. NA not allowed. Targets removed."))
+      warning("(reflim): Targets must be a vector with length 2. NA not allowed. Targets removed.")
       targets = NULL
       result$remarks <- "Unsuitable target values removed"
     }
   }
   if(!is.null(targets)){
     if(is.na(targets[1]) | is.na(targets[2])){
-      print(noquote("Warning message (reflim): Targets must be numeric. NA not allowed. Targets removed."))
+      warning("(reflim): Targets must be numeric. NA not allowed. Targets removed.")
       targets = NULL
       result$remarks <- "Unsuitable target values removed"
     }
   }
   if(!is.null(targets)){
     if(targets[1] >= targets[2]){
-      print(noquote("Warning message (reflim): The upper target limit must be greater than the lower target limit. Targets removed. "))
+      warning("Warning message (reflim): The upper target limit must be greater than the lower target limit. Targets removed. ")
       targets = NULL
       result$remarks <- "Unsuitable target values removed"
     }
   }
   if(!is.null(targets)){
     if(targets[1] <= 0 | targets[2] <= 0){
-      print(noquote("Warning message (reflim): Only positive target values allowed. Targets removed."))
+      warning("(reflim): Only positive target values allowed. Targets removed.")
       targets = NULL
       result$remarks <- "Unsuitable target values removed"
     }
   }
   n <- length(xx)
   if(n < 40){
-    print(noquote(paste("Warning message (reflim): n = ", n, ". The absolute minimum for reference limit estimation is 40. NAs returned.")))
+    warning(paste("(reflim): n = ", n, ". The absolute minimum for reference limit estimation is 40. NAs returned."))
     result$stats[3] <- n
     result$remarks <- "Total n < 40"
     return(result)
     }
   if(n < n.min){
-    print(noquote(paste("Warning message (reflim): n =", n, "where a minimum of", n.min, "is required. n.min has been set to 40 at a potential loss of accuracy.")))
+    warning(paste("(reflim): n =", n, "where a minimum of", n.min, "is required. n.min has been set to 40 at a potential loss of accuracy."))
     result$stats[3] <- n
     result$remarks <- "Attention: low n."
     n.min <- 40
@@ -90,17 +90,17 @@ reflim <- function(x, lognormal = NULL, targets = NULL,
   res.trunc <- iboxplot(xx, lognormal = lognormal,
                         perc.trunc = perc.trunc,
                         apply.rounding = apply.rounding,
-                        print.cycles = FALSE, plot.it = FALSE)
+                        plot.it = FALSE)
   n.trunc <- length(res.trunc$trunc)
   if(n.trunc < 40){
-    print(noquote(paste("Warning message (reflim): n = ", n.trunc, "after truncation. The absolute minimum for reference limit estimation is 40. NAs returned.")))
+    warning(paste("(reflim): n = ", n.trunc, "after truncation. The absolute minimum for reference limit estimation is 40. NAs returned."))
     result$stats[3] <- n
     result$stats[4] <- n.trunc
     result$remarks <- "n < 40 after truncation."
     return(result)
   }
   if(n.trunc < n.min){
-    print(noquote(paste("Warning message (reflim): n.trunc =", n.trunc, "where a minimum of", n.min, "is required. n.min has been set to 40 at a potential loss of accuracy.")))
+    warning(paste("(reflim): n.trunc =", n.trunc, "where a minimum of", n.min, "is required. n.min has been set to 40 at a potential loss of accuracy."))
     result$stats[3] <- n
     result$stats[4] <- n.trunc
     result$remarks <- "Low n after truncation."
@@ -118,7 +118,7 @@ reflim <- function(x, lognormal = NULL, targets = NULL,
                                     upper.limit = as.numeric(res.qq[4]),
                                     apply.rounding = apply.rounding)
   } else {
-    print(noquote("Warning message (reflim): Estimated lower limit <= 0. No tolerance limits calculated. No graphics produced."))
+    warning("(reflim): Estimated lower limit <= 0. No tolerance limits calculated. No graphics produced.")
     res.pu <- rep(NA, 4)
     targets = NULL
     result$remarks <- "Lower limit <= 0"
@@ -155,7 +155,6 @@ reflim <- function(x, lognormal = NULL, targets = NULL,
       lognorm(xx, main = "Step 1: Bowley skewness", xlab = "", plot.logtype = plot.logtype)
       iboxplot(xx, lognormal = lognormal, perc.trunc = perc.trunc,
                           apply.rounding = apply.rounding,
-                          print.cycles = FALSE,
                main = "Step 2: iBoxplot", xlab = "")
       truncated_qqplot(res.trunc$trunc, lognormal = lognormal,
                      perc.trunc = perc.trunc, n.min = n.min,

@@ -1,12 +1,14 @@
 iboxplot <- function(x, lognormal = NULL, perc.trunc = 2.5, apply.rounding = TRUE,
-                     print.cycles = TRUE, plot.it = TRUE,
-                     main = "iBoxplot", xlab = "x"){
+                     plot.it = TRUE, main = "iBoxplot", xlab = "x"){
   xx <- na.omit(x)
   if(!is.numeric(xx)){stop("(iboxplot) x must be numeric.")}
   if(min(xx) <= 0){stop("(iboxplot) x must be a vector of positive numbers.")}
   digits <- adjust_digits(median(xx))$digits
   n <- length(xx)
   if(n < 40){stop(paste0("(iboxplot) n = ", n, ". The absolute minimum for reference limit estimation is 40."))}
+
+  progress <- data.frame(cycle = 0, n = n, min = min(xx), max = max(xx))
+
   if(is.null(lognormal)){lognormal <- lognorm(xx, plot.it = FALSE)$lognormal}
   if (lognormal){xx <- log(xx)}
 
@@ -26,22 +28,19 @@ iboxplot <- function(x, lognormal = NULL, perc.trunc = 2.5, apply.rounding = TRU
 
   print.progress <- function(x, i, lognormal = FALSE){
     if (lognormal){x <- exp(x)}
-    x <- round(x, 2)
-    print(paste("cycle", i, "n =", length(x), "min =", min(x), "max =", max(x)))
+    return(c(i, length(x), min(x), max(x)))
   }
 
   n0 <- 1
   n1 <- 0
   i <- 0
 
-  if(print.cycles){print.progress(xx, i, lognormal = lognormal)}
-
   while (n0 > n1){
     i <- i + 1
     n0 <- length(xx)
     xx <- truncate.x(xx, i)
     n1 <- length(xx)
-    if(print.cycles){print.progress(xx, i, lognormal = lognormal)}
+    progress <- rbind(progress, print.progress(xx, i, lognormal = lognormal))
   }
 
   if (lognormal){xx <- exp(xx)}
@@ -75,5 +74,10 @@ iboxplot <- function(x, lognormal = NULL, perc.trunc = 2.5, apply.rounding = TRU
     boxplot(xx, at = max(d[, 2]) * 1.25, boxwex = max(d[, 2])/10,
             col = "blue", pch = 20, horizontal = T, add = T)
   }
-  return(list(trunc = xx, truncation.points = lim, lognormal = lognormal, perc.norm = prop))
+  progress[, 3 : 4] <- round(progress[, 3 : 4], digits)
+  return(list(trunc = xx,
+              truncation.points = lim,
+              lognormal = lognormal,
+              perc.norm = prop,
+              progress = progress))
 }
