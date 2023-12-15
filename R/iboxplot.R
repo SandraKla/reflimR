@@ -1,11 +1,11 @@
 iboxplot <- function(x, lognormal = NULL, perc.trunc = 2.5, apply.rounding = TRUE,
                      plot.it = TRUE, main = "iBoxplot", xlab = "x"){
   xx <- na.omit(x)
-  if(!is.numeric(xx)){stop("(iboxplot) x must be numeric.")}
-  if(min(xx) <= 0){stop("(iboxplot) x must be a vector of positive numbers.")}
+  if(!is.numeric(xx)){stop("x must be numeric.")}
+  if(min(xx) <= 0){stop("x must be a vector of positive numbers.")}
   digits <- adjust_digits(median(xx))$digits
   n <- length(xx)
-  if(n < 40){stop(paste0("(iboxplot) n = ", n, ". The absolute minimum for reference limit estimation is 40."))}
+  if(n < 40){stop(paste0("n = ", n, ". The absolute minimum for reference limit estimation is 40."))}
 
   progress <- data.frame(cycle = 0, n = n, min = min(xx), max = max(xx))
 

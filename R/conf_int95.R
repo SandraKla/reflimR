@@ -1,5 +1,5 @@
 conf_int95 <- function(n, lower.limit, upper.limit, lognormal = TRUE, apply.rounding = TRUE){
-  if(upper.limit <= lower.limit){stop("(conf_int95) upper limit must be higher than lower limit.")}
+  if(upper.limit <= lower.limit){stop("upper.limit must be higher than lower.limit.")}
   if(lognormal){
     lower.limit <- log(lower.limit)
     upper.limit <- log(upper.limit)

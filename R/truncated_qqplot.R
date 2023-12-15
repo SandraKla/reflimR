@@ -3,11 +3,11 @@ truncated_qqplot <- function(x.trunc, lognormal = NULL, perc.trunc = 2.5, n.min 
                              main = "Q-Q plot", xlab = "theoretical quantiles", ylab = "sample quantiles"){
 
   x.trunc <- na.omit(x.trunc)
-  if(!is.numeric(x.trunc)){stop("(truncated_qqplot) x.trunc must be numeric.")}
-  if(min(x.trunc) <= 0){stop("(truncated_qqplot) only positive values allowed.")}
+  if(!is.numeric(x.trunc)){stop("x.trunc must be numeric.")}
+  if(min(x.trunc) <= 0){stop("Only positive values allowed.")}
 
   n <- length(x.trunc)
-  if(n < 40){stop(paste0("(truncated_qqplot) n = ", n, ". The absolute minimum for reference limit estimation is 40."))}
+  if(n < 40){stop(paste0("n = ", n, ". The absolute minimum for reference limit estimation is 40."))}
   if(n < n.min){
     warning(paste("(truncated_qqplot) n =", n, "where a minimum of", n.min, "is required. You may try to reduce n.min at the loss of accuracy."))
     return(list(result = NULL, lognormal = NULL))

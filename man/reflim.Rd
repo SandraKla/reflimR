@@ -60,4 +60,5 @@ par(mfrow = c(2, 2))
 reflim(x.f$AST, plot.all = TRUE, main = "AST/GOT", xlab = "U/L")$limits
 reflim(x.f$ALB, targets = targetvalues[1, 3 : 4],
   plot.all = TRUE, main = "ALB", xlab = "g/L")$limits
+par(mfrow = c(1, 1))
 }

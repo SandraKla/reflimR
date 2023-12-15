@@ -2,23 +2,23 @@ ri_hist <- function(x, lognormal, stats, limits, perc.norm,
                     targets = NULL, remove.extremes = TRUE,
                     main = "reflim", xlab = "x"){
   xx <- na.omit(x)
-  if(!is.numeric(xx)){stop("(ri_hist) x must be numeric.")}
-  if(min(xx) <= 0){stop("(ri_hist) x must be a vector of positive numbers.")}
-  if(length(stats) != 2){stop("(ri_hist) stats must be a vector with length 2 containing mean (or meanlog) and sd (or sdlog).")}
-  if(length(limits) != 2){stop("(ri_hist) limits must be a vector with length 2.")}
+  if(!is.numeric(xx)){stop("x must be numeric.")}
+  if(min(xx) <= 0){stop("x must be a vector of positive numbers.")}
+  if(length(stats) != 2){stop("stats must be a vector with length 2 containing mean (or meanlog) and sd (or sdlog).")}
+  if(length(limits) != 2){stop("limits must be a vector with length 2.")}
   if(is.numeric(limits)){
-    if(limits[1] >= limits[2]){stop("(ri_hist) the upper limit must be greater than the lower limit.")}
-    if(limits[1] <= 0 | limits[2] <= 0){stop("(ri_hist) only positive limit values allowed.")}
+    if(limits[1] >= limits[2]){stop("The upper limit must be greater than the lower limit.")}
+    if(limits[1] <= 0 | limits[2] <= 0){stop("Only positive limit values allowed.")}
   }
   if(!is.null(targets)){
-    if(length(targets) != 2){stop("(ri_hist) targets must be a vector with length 2.")}
-    if(targets[1] >= targets[2]){stop("(ri_hist) the upper target limit must be greater than the lower target limit.")}
-    if(targets[1] <= 0 | targets[2] <= 0){stop("(ri_hist) only positive limit values allowed.")}
+    if(length(targets) != 2){stop("targets must be a vector with length 2.")}
+    if(targets[1] >= targets[2]){stop("The upper target limit must be greater than the lower target limit.")}
+    if(targets[1] <= 0 | targets[2] <= 0){stop("Only positive limit values allowed.")}
   }
 
   digits <- adjust_digits(median(xx))$digits
   n <- length(xx)
-  if(n < 40){{stop(paste0("(ri_hist) n = ", n, ". The absolute minimum for reference limit estimation is 40."))}}
+  if(n < 40){{stop(paste0("n = ", n, ". The absolute minimum for reference limit estimation is 40."))}}
 
   if(remove.extremes){xx <- xx[xx <= median(xx) + 8 * IQR(xx)]}
   if(n < 200){breaks <- "Sturges"} else {

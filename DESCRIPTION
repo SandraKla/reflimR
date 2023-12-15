@@ -1,8 +1,8 @@
 Package: reflimR
 Type: Package
 Title: Reference Limit Estimation Using Routine Laboratory Data
-Version: 1.0.0
-Date: 2023-12-08
+Version: 1.0.2
+Date: 2023-12-15
 Authors@R: c(person("Georg", "Hoffmann", role = c("aut", "cre"),
                      email = "georg.hoffmann@trillium.de"),
                      person("Sandra", "Klawitter", role = "aut"),

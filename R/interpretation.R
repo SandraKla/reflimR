@@ -1,10 +1,10 @@
 interpretation <- function(limits, targets){
-  if(length(limits) != 2){stop("(interpretation) limits must be a vector with length 2.")}
-  if(limits[1] >= limits[2]){stop("(interpretation) the upper limit must be greater than the lower limit.")}
-  if(limits[1] <= 0 | limits[2] <= 0){stop("(interpretation) only positive limit values allowed.")}
-  if(length(targets) != 2){stop("(interpretation) targets must be a vector with length 2.")}
-  if(targets[1] >= targets[2]){stop("(interpretation) the upper target limit must be greater than the lower target limit.")}
-  if(targets[1] <= 0 | targets[2] <= 0){stop("(interpretation) only positive target values allowed.")}
+  if(length(limits) != 2){stop("Limits must be a vector with length 2.")}
+  if(limits[1] >= limits[2]){stop("The upper limit must be greater than the lower limit.")}
+  if(limits[1] <= 0 | limits[2] <= 0){stop("Only positive limit values allowed.")}
+  if(length(targets) != 2){stop("targets must be a vector with length 2.")}
+  if(targets[1] >= targets[2]){stop("The upper target limit must be greater than the lower target limit.")}
+  if(targets[1] <= 0 | targets[2] <= 0){stop("Only positive target values allowed.")}
 
   tol.lim <- permissible_uncertainty(limits[1], limits[2])
   col.lim <- c(lower.limit = rgb(0.7, 0.7, 0.7, 0.5), upper.limit = rgb(0.7, 0.7, 0.7, 0.5))

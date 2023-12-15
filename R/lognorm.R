@@ -3,9 +3,9 @@ lognorm <- function(x, cutoff = 0.05, alpha = 0.25, digits = 3,
                     main = "Bowley skewness", xlab = "x"){
   xx <- x[!is.na(x)]
 
-  if(!is.numeric(xx)){stop("(lognorm) x must be numeric.")}
-  if(length(xx) < 2){stop("(lognorm) x must be a vector of at least 2 numeric values.")}
-  if(min(xx) <= 0){stop("(lognorm) negative values not allowed.")}
+  if(!is.numeric(xx)){stop("x must be numeric.")}
+  if(length(xx) < 2){stop("x must be a vector of at least 2 numeric values.")}
+  if(min(xx) <= 0){stop("Negative values not allowed.")}
 
   bs <- rep(NA, 2)
   bs[1] <- bowley(xx, alpha)

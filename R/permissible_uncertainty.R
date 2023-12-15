@@ -1,6 +1,6 @@
 permissible_uncertainty <- function(lower.limit, upper.limit, apply.rounding = TRUE){
   if(lower.limit <= 0 | upper.limit <= 0 | lower.limit >= upper.limit ){
-    stop("(permissible_uncertainty) please check limits, only positive values allowed.")}
+    stop("Please check lower and upper limits: only positive values allowed.")}
 
   g <- sqrt(lower.limit * upper.limit)
   slog<-(log(upper.limit) - log(lower.limit)) / 3.92
