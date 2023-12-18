@@ -7,7 +7,7 @@ iboxplot <- function(x, lognormal = NULL, perc.trunc = 2.5, apply.rounding = TRU
   n <- length(xx)
   if(n < 40){stop(paste0("n = ", n, ". The absolute minimum for reference limit estimation is 40."))}
 
-  progress <- data.frame(cycle = 0, n = n, min = min(xx), max = max(xx))
+  progress <- data.frame(n = n, min = min(xx), max = max(xx))
 
   if(is.null(lognormal)){lognormal <- lognorm(xx, plot.it = FALSE)$lognormal}
   if (lognormal){xx <- log(xx)}
@@ -26,9 +26,9 @@ iboxplot <- function(x, lognormal = NULL, perc.trunc = 2.5, apply.rounding = TRU
     return(subset(x, x >= lim[1] & x <= lim[2]))
   }
 
-  print.progress <- function(x, i, lognormal = FALSE){
+  print.progress <- function(x, lognormal = FALSE){
     if (lognormal){x <- exp(x)}
-    return(c(i, length(x), min(x), max(x)))
+    return(c(length(x), min(x), max(x)))
   }
 
   n0 <- 1
@@ -40,13 +40,13 @@ iboxplot <- function(x, lognormal = NULL, perc.trunc = 2.5, apply.rounding = TRU
     n0 <- length(xx)
     xx <- truncate.x(xx, i)
     n1 <- length(xx)
-    progress <- rbind(progress, print.progress(xx, i, lognormal = lognormal))
+    progress <- rbind(progress, print.progress(xx, lognormal = lognormal))
   }
 
   if (lognormal){xx <- exp(xx)}
   lim <- c(lower = min(xx), upper = max(xx))
   if(apply.rounding){lim <- round(lim, digits)}
-  prop <- round(length(xx) * 100 / 0.95 / n, 2)
+  prop <- round(length(xx) * 100 / 0.95 / n, 1)
   if(prop > 100){prop <- 100}
 
   if (plot.it){
@@ -74,7 +74,8 @@ iboxplot <- function(x, lognormal = NULL, perc.trunc = 2.5, apply.rounding = TRU
     boxplot(xx, at = max(d[, 2]) * 1.25, boxwex = max(d[, 2])/10,
             col = "blue", pch = 20, horizontal = T, add = T)
   }
-  progress[, 3 : 4] <- round(progress[, 3 : 4], digits)
+  progress[, 2 : 3] <- round(progress[, 2 : 3], digits)
+  row.names(progress) <- paste0("cycle", 0 : i)
   return(list(trunc = xx,
               truncation.points = lim,
               lognormal = lognormal,
