@@ -141,6 +141,7 @@ reflim <- function(x, lognormal = NULL, targets = NULL,
   if(res.qq[3] > 0){
     if(plot.all){plot.it <- TRUE}
     if(plot.it){
+      if(plot.all){oldpar <- par(mfrow = c(2, 2))}
       rh <- ri_hist(xx, lognormal = lognormal, stats = res.qq[1 : 2],
               limits = res.qq[3 : 4], targets = targets,
               perc.norm = res.trunc$perc.norm,
@@ -160,6 +161,7 @@ reflim <- function(x, lognormal = NULL, targets = NULL,
                      perc.trunc = perc.trunc, n.min = n.min,
                      apply.rounding = apply.rounding,
                      main = "Step 3: Q-Q plot", xlab = "", ylab = "")
+      par(oldpar)
     }
   }
 
