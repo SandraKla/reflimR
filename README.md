@@ -6,4 +6,4 @@
 
 ## Description
 
-The **reflimR** package provides a simple and robust three-step procedure for the estimation of reference intervals from routine laboratory data that may contain an unknown proportion of pathological results. Reference intervals play a crucial role in the medical interpretation and statistical evaluation of laboratory results. The latest release is available at [CRAN](https://cran.r-project.org/package=reflimR).
+The **reflimR** package provides a simple and robust three-step procedure for the estimation of reference intervals from routine laboratory data that may contain an unknown proportion of pathological results. Reference intervals play a crucial role in the medical interpretation and statistical evaluation of laboratory results.
